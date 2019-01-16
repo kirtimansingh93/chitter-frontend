@@ -1,0 +1,25 @@
+h1 {
+  font-size: 50px;
+}
+
+form {
+  font-size: 20px;
+}
+
+strong {
+  font-size: 25px;
+}
+
+em {
+  font-size: 15px;
+}
+
+#nav-bar,
+form {
+  text-align: center;
+}
+
+#peeps {
+  margin-left: 25%;
+  font-size: 20px;
+}
