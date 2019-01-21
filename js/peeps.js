@@ -1,20 +1,23 @@
 const peepsContainer = document.getElementById('peeps');
 
-const xhr = new XMLHttpRequest();
-xhr.open('GET', 'https://chitter-backend-api.herokuapp.com/peeps', true);
-xhr.onload = function() {
-  if (this.status == 200) {
-    try {
-      const resObjData = JSON.parse(this.responseText);
-      renderDataToHTML(resObjData);
-    } catch (e) {
-      console.warn('There was an error in the JSON. Could not parse!');
-    }
-  } else {
+function getPeeps() {
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://chitter-backend-api.herokuapp.com/peeps', true);
+  xhr.onload = function () {
+    if (this.status == 200) {
+      try {
+        const resObjData = JSON.parse(this.responseText);
+        renderDataToHTML(resObjData);
+      } catch (e) {
+        console.warn('There was an error in the JSON. Could not parse!');
+      }
+    } else {
       console.warn('Did not receive 200 OK from response!');
-  }
-};
-xhr.send();
+    }
+  };
+  xhr.send();
+}
+
 
 function renderDataToHTML(data) {
   let peepsDivHTML = '';
@@ -25,33 +28,35 @@ function renderDataToHTML(data) {
   document.getElementById('peeps').innerHTML = peepsDivHTML;
 }
 
-
-
-
 function signUp() {
-  const xhttp = new XMLHttpRequest();
-  xhttp.open("POST", "https://chitter-backend-api.herokuapp.com/users", true);
-  xhttp.setRequestHeader("Content-Type", "application/json");
-  let input = JSON.stringify({ "user": { "handle": "kirt", "password": "mypassword" } });
+  let handle = document.getElementById('handle').value;
+  let signUpPassword = document.getElementById('signup-password').value;
+  let url = 'https://chitter-backend-api.herokuapp.com/users';
+  let signUpData = {
+    user: {
+      handle: handle,
+      password: signUpPassword
+    }
+  };
 
-  xhttp.send(input);
+  fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(signUpData), 
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(res => res.json())
+    .then(getPeeps())
+    .then(response => console.log('Success:', JSON.stringify(response)))
+    .catch(error => console.error('Error:', error));
+
 }
 
-
-// const xhttp2 = new XMLHttpRequest();
-// xhttp2.open("POST", "https://chitter-backend-api.herokuapp.com/sessions", true);
-// xhttp2.setRequestHeader("Content-Type", "application/json");
-// const resObjData2 = JSON.stringify({
-//                     "session": {"handle":"kirt", 
-//                                 "password":"mypassword"
-//                               }
-//                             });
-
-// xhttp2.send(resObjData2);
-
-function signIn(username, password) {
-  var url = 'https://chitter-backend-api.herokuapp.com/sessions';
-  var data = `{ "session": { "handle": "${username}", "${password}": "mypassword" } }`;
+function signIn() {
+  let username = document.getElementById('username').value;
+  let password = document.getElementById('password').value;
+  let url = 'https://chitter-backend-api.herokuapp.com/sessions';
+  let data = { session: { handle: username, password: password } };
 
   fetch(url, {
     method: 'POST', // or 'PUT'
@@ -60,9 +65,23 @@ function signIn(username, password) {
       'Content-Type': 'application/json'
     }
   }).then(res => res.json())
+    .then(getPeeps())
     .then(response => console.log('Success:', JSON.stringify(response)))
     .catch(error => console.error('Error:', error));
-
+    
 }
 
-  
+// function postPeep(peep) {
+//   let url = 'https://chitter-backend-api.herokuapp.com/peeps';
+//   let data = `{ "session": { "handle": "${username}", "${password}": "mypassword" } }`;
+
+//   fetch(url, {
+//     method: 'POST', // or 'PUT'
+//     body: JSON.stringify(data), // data can be `string` or {object}!
+//     headers: {
+//       'Content-Type': 'application/json'
+//     }
+//   }).then(res => res.json())
+//     .then(response => console.log('Success:', JSON.stringify(response)))
+//     .catch(error => console.error('Error:', error));
+// }
