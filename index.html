@@ -29,6 +29,15 @@
     <input type="submit" id="sign-in" value="Sign in">
     <br> <br>
   </form>
+  <br> <br>
+  <form id="new-peep-form">
+    <textarea placeholder="Post a peep" id="peep"></textarea>
+    <br>
+    <input type="submit" id="post-peep" value="Post">
+  </form>
+
+  <button id="button" onclick="logOut()">Logout</button>
+
   <div id="peeps"></div>
   <script src="js/peeps.js"></script>
   <script>
@@ -45,6 +54,16 @@
         e.preventDefault();
         signIn();
       })
+
+      let postForm = document.getElementById('new-peep-form');
+      postForm.addEventListener("submit", function(e) {
+        e.preventDefault();
+        postPeep();
+      })
+
+      if (sessionKey() != null) {
+        getPeeps();
+      }
 
     });
   </script>
