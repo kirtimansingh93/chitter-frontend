@@ -1,71 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="css/style.css">
-  <title>Chitter</title>
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Chitter</title>
+  </head>
 
-<body>
-  <nav id="nav-bar">
-    <h1>Chitter</h1>
-  </nav>
-  <br>
-  <form id="signup-form">
-    <h5>Choose a user handle:</h5>
-    <input type="text" id="handle" name="username" placeholder="username" required> <br>
-    <h5>Choose a Password:</h5>
-    <input type="password" id="signup-password" name="password" placeholder="password" required> <br>
-    <input type="submit" id="sign-up" value="Sign up">
-    <br> <br> <br>
-  </form>
-  <form id="login-form">
-    <h5>Username:</h5>
-    <input type="text" id="username" name="username" placeholder="username" required> <br>
-    <h5>Password:</h5>
-    <input type="password" id="password" name="password" placeholder="password" required> <br>
-    <input type="submit" id="sign-in" value="Sign in">
-    <br> <br>
-  </form>
-  <br> <br>
-  <form id="new-peep-form">
-    <textarea placeholder="Post a peep" id="peep"></textarea>
+  <body>
+    <nav id="nav-bar">
+      <h1>Chitter</h1>
+    </nav>
     <br>
-    <input type="submit" id="post-peep" value="Post">
-  </form>
+    <div>
+      <form id="signup-form">
+        <h5>Choose a user handle:</h5>
+          <input type="text" id="handle" name="username" placeholder="username" required> <br>
+        <h5>Choose a Password:</h5>
+          <input type="password" id="signup-password" name="password" placeholder="password" required> <br>
+          <input type="submit" id="sign-up" value="Sign up">
+        <br> <br> <br>
+      </form>
+    </div>
+    <div>
+      <form id="login-form">
+        <h5>Username:</h5>
+        <input type="text" id="username" name="username" placeholder="username" required> <br>
+        <h5>Password:</h5>
+        <input type="password" id="password" name="password" placeholder="password" required> <br>
+        <input type="submit" id="sign-in" value="Sign in">
+        <br> <br>
+      </form>
+      <br> <br>
+    </div>
+    
+    <form id="new-peep-form">
+      <textarea placeholder="Post a peep" id="peep"></textarea>
+      <br>
+      <input type="submit" id="post-peep" value="Post">
+    </form>
+    <br>
+    <button id="logout" onclick="logOut()">Logout</button>
+    <br>
 
-  <button id="button" onclick="logOut()">Logout</button>
-
-  <div id="peeps"></div>
-  <script src="js/peeps.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-
-      let signupForm = document.getElementById('signup-form');
-      signupForm.addEventListener("submit", function(e) {
-        e.preventDefault();
-        signUp();
-      })
-
-      let loginForm = document.getElementById('login-form');
-      loginForm.addEventListener("submit", function(e) {
-        e.preventDefault();
-        signIn();
-      })
-
-      let postForm = document.getElementById('new-peep-form');
-      postForm.addEventListener("submit", function(e) {
-        e.preventDefault();
-        postPeep();
-      })
-
-      if (sessionKey() != null) {
-        getPeeps();
-      }
-
-    });
-  </script>
-</body>
+    <section id="peeps"></section>
+    
+   
+    <script src="js/peeps.js"></script>
+    <script src="js/dom.js"></script>
+    <script src="js/user.js"></script>
+    <script src="js/session.js"></script>
+  </body>
 </html>

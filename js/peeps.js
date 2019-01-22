@@ -19,11 +19,6 @@ function getPeeps() {
   xhr.send();
 }
 
-function logOut() {
-  sessionStorage.clear()
-  location.reload()
-}
-
 
 function renderDataToHTML(data) {
   let peepsDivHTML = '';
@@ -34,69 +29,11 @@ function renderDataToHTML(data) {
   document.getElementById('peeps').innerHTML = peepsDivHTML;
 }
 
-function signUp() {
-  let handle = document.getElementById('handle').value;
-  let signUpPassword = document.getElementById('signup-password').value;
-  let url = 'https://chitter-backend-api.herokuapp.com/users';
-  let signUpData = {
-    user: {
-      handle: handle,
-      password: signUpPassword
-    }
-  };
-
-  fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(signUpData), 
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(res => res.json())
-    .then(getPeeps())
-    .then(response => console.log('Success:', JSON.stringify(response)))
-    .catch(error => console.error('Error:', error));
-
-}
-
-function signIn() {
-  let username = document.getElementById('username').value;
-  let password = document.getElementById('password').value;
-  let url = 'https://chitter-backend-api.herokuapp.com/sessions';
-  let data = { session: { handle: username, password: password } };
-
-  fetch(url, {
-    method: 'POST',
-    body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }).then(res => res.json())
-    // .then(response => console.log('Success:', response))
-    .then(response => {
-      console.log(response);
-      sessionStorage.setItem('user_id', `${response['user_id']}`);
-      sessionStorage.setItem('session_key', `${response['session_key']}`);
-    })
-    .catch(error => console.error('Incorrect login details', error))
-    .then(getPeeps());
-}
-
-function sessionKey() {
-  return sessionStorage.getItem('session_key')
-}
-
-
 function postPeep() {
   let userID = parseInt(sessionStorage.getItem('user_id'));
   let post = document.getElementById('peep').value;
   let url2 = 'https://chitter-backend-api.herokuapp.com/peeps';
   let data2 = { peep: { user_id:userID, body:post } };
-  // let data2 = `{ peep: { user_id:${userID}, body:${post} } }`;
-  // '{"peep": {"user_id":1, "body":"my first peep :)"}}'
-  
-  // let myHeaders = new Headers();
-  // myHeaders.append('Content-Type', 'application/json');
-  // myHeaders.append('Authorization', `Token token=${sessionKey}`);
 
   fetch(url2, {
     method: 'POST',
