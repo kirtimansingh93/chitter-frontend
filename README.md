@@ -8,11 +8,12 @@ The task is to build a front-end single-page-app to interface with this API.[The
 
 Here are some interactions the API supports:
 
-* Creating Users
-* Logging in
-* Posting Peeps
-* Viewing all Peeps
-* Viewing individual Peeps
-* Deleting Peeps
-* Liking Peeps
-* Unliking Peeps
+[x] Creating Users
+[x] Logging in
+[x] Posting Peeps
+[x] Viewing all Peeps
+[ ] Viewing individual Peeps
+[ ] Deleting Peeps
+[ ] Liking Peeps
+[ ] Unliking Peeps
+[ ] Add Tests
